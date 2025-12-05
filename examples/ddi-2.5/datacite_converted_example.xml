@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codeBook xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="ddi:codebook:2_5" xsi:schemaLocation="ddi:codebook:2_5 https://ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd" version="2.5">
+   <docDscr>
+      <citation>
+         <titlStmt>
+            <titl>Canadian Census Data Inventory, 1666-2021</titl>
+            <IDNo agency="DOI">doi:10.5683/SP3/J1NJYK</IDNo>
+         </titlStmt>
+         <distStmt>
+            <distrbtr source="archive">Borealis</distrbtr>
+            <distDate>2025-05-06</distDate>
+         </distStmt>
+         <verStmt source="archive">
+            <version date="2025-05-06" type="RELEASED">10</version>
+         </verStmt>
+         <biblCit>Canadian Census Data Discovery Partnership (CCDDP), 2025, "Canadian Census Data Inventory, 1666-2021", https://doi.org/10.5683/SP3/J1NJYK, Borealis, V10</biblCit>
+      </citation>
+   </docDscr>
+   <stdyDscr>
+      <citation>
+         <titlStmt>
+            <titl>Canadian Census Data Inventory, 1666-2021</titl>
+            <subTitl>CCDDP Inventory</subTitl>
+            <IDNo agency="DOI">doi:10.5683/SP3/J1NJYK</IDNo>
+         </titlStmt>
+         <rspStmt>
+            <AuthEnty>Canadian Census Data Discovery Partnership (CCDDP)</AuthEnty>
+         </rspStmt>
+         <prodStmt>
+            <prodDate>2024</prodDate>
+            <fundAg>SSHRC</fundAg>
+         </prodStmt>
+         <distStmt>
+            <distrbtr source="archive">Borealis</distrbtr>
+            <contact>CCDDP Project</contact>
+            <depDate>2024-07-18</depDate>
+            <distDate>2025-05-06</distDate>
+         </distStmt>
+         <holdings URI="https://doi.org/10.5683/SP3/J1NJYK"/>
+      </citation>
+      <stdyInfo>
+         <subject>
+            <keyword>Social Sciences</keyword>
+            <keyword>Census of Population</keyword>
+         </subject>
+         <abstract date="2024-07-18">The Canadian Census Data Inventory is a project of the Canadian Census Data Discovery Partnership (CCDDP). &amp;lt;br&amp;gt;&amp;lt;br&amp;gt;The CCDDP project aims to facilitate historical research by reducing the barriers to access and use of Canadian census data. Using the search tab of  &amp;lt;a href=&amp;quot;https://zacktaylor.shinyapps.io/census_inventory_portal/&amp;quot;&amp;gt;The Census Data Discovery Portal&amp;lt;/a&amp;gt; users can discover historical and contemporary Canadian census materials and data items held by numerous institutions across the country. This dataset contains the original inputted and captured census items and corresponding metadata fields for the inventory tables in English and French including enhanced census terms for finding census data. Additional improvements are being made to the inventory and will be addressed by future infrastructure. 
+&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;
+Censuses, or population counts, have been conducted in the territory now known as Canada since 1665-66 in New France. Canada’s census is our most valuable primary economic, social, and cultural data set, and is an essential research tool for the formation of new knowledge and understanding about the populations that lived here in the past and present. 
+&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;
+The sources of information that make up these censuses are rich, diverse, and complex. They consist of databases of archival records, publications, and data files, containing a mix of primary data, expert analyses, and supporting documentation. This project is focused on those sources that contain data, and documentation that supports the use of the data.
+&amp;lt;br&amp;gt;
+&amp;lt;br&amp;gt;
+The CCDDP project is funded by a SSHRC Partnership Development Grant (2021-2024). Key deliverables are inventorying Canada’s historical census data, the design and delivery of this proof-of-concept bilingual discovery portal, and developing a set of recommendations for future work. Please see the project website for the full list of project partners, investigators and collaborators, and join our listserv to receive project updates.
+&amp;lt;br&amp;gt;
+&amp;lt;br&amp;gt;
+Inventory data last updated: 2024-03-31</abstract>
+         <sumDscr>
+            <geogCover>Canada</geogCover>
+         </sumDscr>
+      </stdyInfo>
+      <dataAccs>
+         <useStmt>
+            <restrctn>info:eu-repo/semantics/openAccess</restrctn>
+            <restrctn xml:lang="en">http://creativecommons.org/licenses/by/4.0 = Creative Commons Attribution 4.0 International License.</restrctn>
+            <conditions xml:lang="en" elementVersion="info:eu-repo-Access-Terms vocabulary">info:eu-repo/semantics/openAccess</conditions>
+         </useStmt>
+      </dataAccs>
+      <othrStdyMat>
+         <relMat>https://doi.org/10.20381/RUOR-27858</relMat>
+      </othrStdyMat>
+   </stdyDscr>
+   <fileDscr>
+      <fileTxt>
+         <fileType>text/tab-separated-values</fileType>
+         <fileType>application/vnd.openxmlformats-officedocument.wordprocessingml.document</fileType>
+         <fileType>application/pdf</fileType>
+      </fileTxt>
+   </fileDscr>
+</codeBook>

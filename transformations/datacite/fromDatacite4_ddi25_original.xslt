@@ -309,26 +309,25 @@
                     <xsl:if test="dc:rightsList/dc:rights">
                         <useStmt>
                             <xsl:for-each select="dc:rightsList/dc:rights">
-                                <xsl:if test="text() or @rightsURI">
-                                    <restrctn>
+                                <xsl:if test="text()">
+                                    <conditions>
                                         <xsl:if test="@xml:lang">
                                             <xsl:attribute name="xml:lang">
                                                 <xsl:value-of select="@xml:lang"/>
                                             </xsl:attribute>
                                         </xsl:if>
-                                        <xsl:choose><xsl:when test="text() and @rightsURI"><xsl:value-of select="@rightsURI"/> = <xsl:value-of select="."/></xsl:when><xsl:otherwise><xsl:value-of select="."/><xsl:value-of select="@rightsURI"/></xsl:otherwise></xsl:choose>
+                                        <xsl:value-of select="."/>
+                                    </conditions>
+                                </xsl:if>
+                                <xsl:if test="@rightsURI">
+                                    <restrctn>
+                                        <xsl:value-of select="@rightsURI"/>
                                     </restrctn>
                                 </xsl:if>
-                            </xsl:for-each>
-                            <xsl:for-each select="dc:rightsList/dc:rights[contains(@rightsURI, 'eu-repo') or contains(., 'eu-repo')]">
-                                <conditions xml:lang="en" elementVersion="info:eu-repo-Access-Terms vocabulary">
-                                    <xsl:value-of select="@rightsURI"/>
-                                </conditions>
                             </xsl:for-each>
                         </useStmt>
                     </xsl:if>
                 </dataAccs>
-
                 
                 <!-- Other Study Materials (Related Identifiers) -->
                 <xsl:if test="dc:relatedIdentifiers/dc:relatedIdentifier">
@@ -485,3 +484,4 @@
     </xsl:template>
     
 </xsl:stylesheet>
+
