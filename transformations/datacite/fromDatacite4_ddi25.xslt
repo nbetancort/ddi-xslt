@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    XSLT Transformation: DataCite 4.x to DDI Codebook 2.5
+    XSLT Transformation: DataCite 4.x to DDI Codebook 2.5 Application Profile from CESSDA Version: v3.0.0
+    https://cmv.cessda.eu/profiles/cdc/ddi-2.5/3.0.0/profile.xml
     
     This stylesheet transforms XML metadata from DataCite schema (kernel-4.x)
-    to DDI Codebook 2.5 format following the CESSDA Data Catalogue profile.
+    to DDI Codebook 2.5 format following the CESSDA Data Catalogue profile Version: v3.0.0.
     
     Input:  DataCite XML (http://datacite.org/schema/kernel-4)
-    Output: DDI Codebook 2.5 (ddi:codebook:2_5)
+    Output: DDI Codebook 2.5 (ddi:codebook:2_5) Application Profile from CESSDA Version: v3.0.0
     
-    Author: Lovable AI
-    Date: 2024
+    Author: Lovable AI, Noemi Betancort
+    Date: 2025-12-04/05
 -->
 <xsl:stylesheet version="1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -38,7 +39,14 @@
                 <citation>
                     <titlStmt>
                         <titl>
-                            <xsl:value-of select="dc:titles/dc:title[not(@titleType)][1]"/>
+                            <xsl:choose>
+                                <xsl:when test="@xml:lang">
+                                    <xsl:attribute name="xml:lang">
+                                        <xsl:value-of select="@xml:lang"/>
+                                    </xsl:attribute>
+                                </xsl:when>
+                                <xsl:otherwise><xsl:attribute name="xml:lang">en</xsl:attribute></xsl:otherwise>
+                            </xsl:choose>CDC DDI Codebook 2.5. XML document for <xsl:value-of select="dc:titles/dc:title[not(@titleType)][1]"/>
                         </titl>
                         <xsl:call-template name="output-idno"/>
                     </titlStmt>
@@ -83,16 +91,33 @@
             <stdyDscr>
                 <citation>
                     <titlStmt>
-                        <titl>
-                            <xsl:value-of select="dc:titles/dc:title[not(@titleType)][1]"/>
-                        </titl>
+                        <xsl:for-each select="dc:titles/dc:title[not(@titleType)][1]">
+                            <titl>
+                                <xsl:if test="@xml:lang">
+                                    <xsl:attribute name="xml:lang">
+                                        <xsl:value-of select="@xml:lang"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:value-of select="."/>
+                            </titl>
+                        </xsl:for-each>
                         <xsl:for-each select="dc:titles/dc:title[@titleType='Subtitle']">
                             <subTitl>
+                                <xsl:if test="@xml:lang">
+                                    <xsl:attribute name="xml:lang">
+                                        <xsl:value-of select="@xml:lang"/>
+                                    </xsl:attribute>
+                                </xsl:if>
                                 <xsl:value-of select="."/>
                             </subTitl>
                         </xsl:for-each>
                         <xsl:for-each select="dc:titles/dc:title[@titleType='AlternativeTitle']">
                             <altTitl>
+                                <xsl:if test="@xml:lang">
+                                    <xsl:attribute name="xml:lang">
+                                        <xsl:value-of select="@xml:lang"/>
+                                    </xsl:attribute>
+                                </xsl:if>
                                 <xsl:value-of select="."/>
                             </altTitl>
                         </xsl:for-each>
@@ -151,6 +176,14 @@
                     <!-- Distribution Statement -->
                     <distStmt>
                         <distrbtr source="archive">
+                            <xsl:choose>
+                                <xsl:when test="@xml:lang">
+                                    <xsl:attribute name="xml:lang">
+                                        <xsl:value-of select="@xml:lang"/>
+                                    </xsl:attribute>
+                                </xsl:when>
+                                <xsl:otherwise><xsl:attribute name="xml:lang">en</xsl:attribute></xsl:otherwise>
+                            </xsl:choose>
                             <xsl:value-of select="dc:publisher"/>
                         </distrbtr>
                         <xsl:for-each select="dc:contributors/dc:contributor[@contributorType='ContactPerson']">
@@ -167,16 +200,20 @@
                                 </xsl:choose>
                             </contact>
                         </xsl:for-each>
-                        <xsl:if test="dc:dates/dc:date[@dateType='Submitted']">
-                            <depDate>
-                                <xsl:value-of select="dc:dates/dc:date[@dateType='Submitted']"/>
-                            </depDate>
-                        </xsl:if>
-                        <xsl:if test="dc:dates/dc:date[@dateType='Available']">
-                            <distDate>
-                                <xsl:value-of select="dc:dates/dc:date[@dateType='Available']"/>
-                            </distDate>
-                        </xsl:if>
+                        <xsl:for-each select="dc:dates/dc:date">
+                            <xsl:if test="@dateType='Submitted'">
+                                <depDate>
+                                    <xsl:attribute name="date"><xsl:value-of select="."/></xsl:attribute>
+                                    <!--<xsl:value-of select="."/> datacite always provide standardised dates? -->
+                                </depDate>
+                            </xsl:if>
+                            <xsl:if test="@dateType='Available'">
+                                <distDate>
+                                    <xsl:attribute name="date"><xsl:value-of select="."/></xsl:attribute>
+                                    <!--<xsl:value-of select="."/> datacite always provide standardised dates? -->
+                                </distDate>
+                            </xsl:if>
+                        </xsl:for-each>
                     </distStmt>
                     
                     <!-- Holdings (DOI link) -->
@@ -195,34 +232,31 @@
                     <!-- Subject/Keywords -->
                     <xsl:if test="dc:subjects/dc:subject">
                         <subject>
-                            <xsl:for-each select="dc:subjects/dc:subject">
-                                <xsl:choose>
-                                    <xsl:when test="@subjectScheme">
-                                        <topcClas>
-                                            <xsl:if test="@subjectScheme">
-                                                <xsl:attribute name="vocab">
-                                                    <xsl:value-of select="@subjectScheme"/>
-                                                </xsl:attribute>
-                                            </xsl:if>
-                                            <xsl:if test="@schemeURI">
-                                                <xsl:attribute name="vocabURI">
-                                                    <xsl:value-of select="@schemeURI"/>
-                                                </xsl:attribute>
-                                            </xsl:if>
-                                            <xsl:value-of select="."/>
-                                        </topcClas>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <keyword>
-                                            <xsl:if test="@xml:lang">
-                                                <xsl:attribute name="xml:lang">
-                                                    <xsl:value-of select="@xml:lang"/>
-                                                </xsl:attribute>
-                                            </xsl:if>
-                                            <xsl:value-of select="."/>
-                                        </keyword>
-                                    </xsl:otherwise>
-                                </xsl:choose>
+                            <xsl:for-each select="dc:subjects/dc:subject[not(@subjectScheme='CESSDA')]">
+                                <keyword>
+                                    <xsl:if test="@xml:lang">
+                                        <xsl:attribute name="xml:lang">
+                                            <xsl:value-of select="@xml:lang"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:value-of select="."/>
+                                </keyword>
+                            </xsl:for-each>
+                            <xsl:for-each select="dc:subjects/dc:subject[contains(@subjectScheme, 'CESSDA')]">
+                                <topcClas>
+                                    <xsl:if test="@xml:lang">
+                                        <xsl:attribute name="xml:lang">
+                                            <xsl:value-of select="@xml:lang"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:attribute name="vocab">CESSDA Topic Classification</xsl:attribute>
+                                    <xsl:if test="@schemeURI">
+                                        <xsl:attribute name="vocabURI">
+                                            <xsl:value-of select="@schemeURI"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:value-of select="."/>
+                                </topcClas>
                             </xsl:for-each>
                         </subject>
                     </xsl:if>
@@ -297,6 +331,11 @@
                         <dataColl>
                             <xsl:for-each select="dc:descriptions/dc:description[@descriptionType='Methods']">
                                 <collMode>
+                                    <xsl:if test="@xml:lang">
+                                        <xsl:attribute name="xml:lang">
+                                            <xsl:value-of select="@xml:lang"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
                                     <xsl:value-of select="."/>
                                 </collMode>
                             </xsl:for-each>
